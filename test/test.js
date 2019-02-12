@@ -8,8 +8,8 @@ const baseUrl = "http://api.openweathermap.org/data/2.5/weather",
   apiKey = "faa7c0fda620eff5d8e899e34c7f5224";
 
 
-describe("Test #1", function() {
-  it("Default arguments for API call", function(done) {
+describe("Default arguments for API call", function() {
+  it("Should return error 400", function(done) {
     request.get(baseUrl + `?q=${city}&units=${units}&appid=${apiKey}`, function(err, res, body) {
         weather = JSON.parse(body);
         expect(res.statusCode).to.equal(400);
@@ -20,8 +20,8 @@ describe("Test #1", function() {
   });
 });
 
-describe("Test #2", function() {
-  it("City - New York", function(done) {
+describe("City - New York", function() {
+  it("Should return weather data for New York", function(done) {
     city = "new york";
     request.get(baseUrl + `?q=${city}&units=${units}&appid=${apiKey}`, function(err, res, body) {
         weather = JSON.parse(body);
@@ -36,8 +36,8 @@ describe("Test #2", function() {
   });
 });
 
-describe("Test #3", function() {
-  it("Change units to imperial and city to moscow", function(done) {
+describe("Change units to metric and city to Moscow", function() {
+  it("Should return weather data for Moscow using metric units", function(done) {
     city = "moscow";
     units = "metric";
     request.get(baseUrl + `?q=${city}&units=${units}&appid=${apiKey}`, function(err, res, body) {
@@ -53,8 +53,8 @@ describe("Test #3", function() {
   });
 });
 
-describe("Test #4", function() {
-  it("City that does not exist", function(done) {
+describe("City that does not exist", function() {
+  it("Should return error 404", function(done) {
     city = "vadwacw";
     request.get(baseUrl + `?q=${city}&units=${units}&appid=${apiKey}`, function(err, res, body) {
         weather = JSON.parse(body);
@@ -66,8 +66,8 @@ describe("Test #4", function() {
   });
 });
 
-describe("Test #5", function() {
-  it("Do not specify api key", function(done) {
+describe("Do not specify api key", function() {
+  it("Should return error 401", function(done) {
     request.get(baseUrl + `?q=${city}&units=${units}&appid=`, function(err, res, body) {
         weather = JSON.parse(body);
         expect(res.statusCode).to.equal(401);
